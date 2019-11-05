@@ -1,0 +1,31 @@
+{
+  "name": "@testpossessed/ng-schematics",
+  "version": "1.0.0",
+  "description": "A set of schematics for using Angular and NgRx applying opinionated and more strongly typed practices",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "npm run build && jasmine src/**/*_spec.js"
+  },
+  "keywords": [
+    "schematics",
+    "angular",
+    "ngrx",
+    "strongly typed"
+  ],
+  "author": "Mike Hanson",
+  "license": "MIT",
+  "schematics": "./src/collection.json",
+  "dependencies": {
+    "@angular-devkit/core": "^8.3.17",
+    "@angular-devkit/schematics": "^8.3.17",
+    "@schematics/angular": "^8.3.17",
+    "@types/jasmine": "3.4.1",
+    "@types/node": "8.10.54",
+    "jasmine": "3.5.0",
+    "typescript": "~3.5.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/schematics-cli": "^0.803.17"
+  }
+}

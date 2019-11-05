@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "feature-store-schema",
+  "title": "Feature Store Schematic Schema",
+  "type": "object",
+  "description": "Creates an NgRx feature store in accordance with pattern described at http://github.com/testpossessed/ng-schematics",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name to use for the feature store module will be appended to the name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "project": {
+      "type": "string",
+      "description": "The project to add the module to, defaults to the default project, usually app",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      }
+    },
+    "nospec": {
+      "type": "boolean",
+      "description": "Indicates not to create specs for the feature store elements"
+    }
+  },
+  "required": ["name"]
+}
