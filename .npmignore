@@ -2,6 +2,6 @@
 *.ts
 !*.d.ts
 src/app/*
-src/projects/*
+projects/*
 .vscode/*
 angular.json

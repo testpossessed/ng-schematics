@@ -1,9 +1,9 @@
 # Ng Schematics
 
 ## NgRx - Isolated Store Pattern
-I have been working with Angular for a long time and adopted NgRx pretty early too. I didn't have a problem with all the boiler plate as many did, I like explicit so NgRx being so explicit suited my style. However it was never clear what was considered best practice. While learning NgRx I came across several different styles and for a while adopted the one I felt least uncomfortable with. Periodically I would google NgRx Best Practices and eventually came across two blog posts. [NgRx - Best Practices for Enterprise Applications](https://itnext.io/ngrx-best-practices-for-enterprise-angular-applications-6f00bcdf36d7) by Wes Grimes and [The sandbox pattern](https://blog.strongbrew.io/A-scalable-angular-architecture-part2/) by Brecht Billiet. Individually they didn't quite do it for me, but in my head a pattern combining elements from them both formed very quickly and I applied it to a personal project I was just getting started on.  The first name that came to mind for the patter was Isolated Store, which seemed appropriate and not wanting to waste too much time on a name I decided to go with it (I am open to suggestions for a more appropriate name).
+I have been working with Angular for a long time and adopted NgRx pretty early too. I didn't have a problem with all the boiler plate as many did, I like explicit so NgRx being so explicit suited my style. However it was never clear what was considered best practice. While learning NgRx I came across several different styles and for a while adopted the one I felt least uncomfortable with and the most strongly typed. Periodically I would google NgRx Best Practices and eventually came across two blog posts. [NgRx - Best Practices for Enterprise Applications](https://itnext.io/ngrx-best-practices-for-enterprise-angular-applications-6f00bcdf36d7) by Wes Grimes and [The sandbox pattern](https://blog.strongbrew.io/A-scalable-angular-architecture-part2/) by Brecht Billiet. Individually they didn't quite do it for me, but in my head a pattern combining elements from them both while being strongly typed as much as possible formed very quickly and I applied it to a personal project I was just getting started on.  The first name that came to mind for the patter was Isolated Store, which seemed appropriate and not wanting to waste too much time on a name I decided to go with it (I am open to suggestions for a more appropriate name).
 
-Initialy I thought of creating a public seed project that was generated with the Angular CLI and applied the Isolated Store pattern. Whilst a seed projet gets you started on a new Isolated Store project, it doesn't really help when you want to apply the pattern to an existing project.  Also in any project there is still quite a bit of manual work to do to add apply the pattern to new feature modules, so I decided to create and publish an *npm* package with Angular Schematics that make it easy to implement the Isolated Store pattern in any Angular project.
+Initialy I thought of creating a public seed project that was generated with the Angular CLI and the Isolated Store pattern implemented. Whilst a seed projet gets you started on a new Isolated Store project, it doesn't really help when you want to apply the pattern to an existing project.  Also in any project there is still quite a bit of manual work to do to apply the pattern to new feature modules, so I decided to create and publish an *npm* package with Angular Schematics that make it easy to implement the Isolated Store pattern in any Angular project.
 
 ### Pattern Basics
 The basic principles of the Isolated Store pattern:
@@ -12,7 +12,7 @@ The basic principles of the Isolated Store pattern:
 + Stores should be isolated from Angular feature modules
 
 ## Implementing Isolated Store with Schematics
-In this section I will run through how you use the Angular CLI to create a new project and the schematics in this package to apply the Isolated Store pattern in the project.  As they say *a picture speaks a thousand words* so I will include screen shots for each step.  I am assuming you have Node and npm installed
+In this section I will run through how you use the Angular CLI to create a new project and use the schematics in this package to apply the Isolated Store pattern in the project.  As they say *a picture speaks a thousand words* so I will include screen shots for each step.  I am assuming you have Node and npm installed
 
 Lets start by making sure we have the latest Angular CLI installed
 
@@ -20,7 +20,7 @@ Lets start by making sure we have the latest Angular CLI installed
 npm install -g @angular/cli
 ```
 
-Next we create a new Angular project.  I keep all my Git repos below a root folder at C:\_git.  With a console focused on your own equivalent create a new project and open it in your preferred editor.  I will use VS Code and accept defaults when prompted by the CLI.
+Next we create a new Angular project.  I keep all my Git repos below a root folder at C:\\_git.  With a terminal focused on your own equivalent create a new project and open it in your preferred editor.  I will use VS Code and accept defaults when prompted by the CLI.
 
 ```bash
 ng new isolated-store
@@ -28,7 +28,7 @@ cd isolated-store
 code .
 ```
 
-I want to demonstrate how the schematics can work with nested projects so I am going to add a project to the new app.  Back in my console I execute
+I want to demonstrate how the schematics can work with nested projects so I am going to add a project to the new app.  Back in my terminal I execute
 ```bash
 ng g library nested
 ```
@@ -39,17 +39,17 @@ In VS Code the workspace structure looks like this
 
 Next we install the this schematics package (Plans are afoot to support ng add)
 ```bash
-npm install @testpossessed@ng-schematics
+npm install @testpossessed/ng-schematics
 ```
 
 ### Root Store
 The Isolated Store pattern as the name suggests isolates all of the NgRx stores from other application or library project code.  To achieve this we create a Root Store within a project then add Feature Stores to it.  Typically you will create a Feature Store for each Feature Module.
 
-To prepare a project for the Isolated Store pattern and generate a Root Store we execute the root-store schematic in a console, usually at the root of the workspace
+To prepare a project for the Isolated Store pattern and generate a Root Store we execute the root-store schematic in a terminal, usually at the root of the workspace
 ```bash
     ng g @testpossessed/ng-schematics:root-store
 ```
-This uses the defaults and adds a module named *root-store* to the default project, usually *app*.  It also detects whether you have the appropriate NgRX dependencies installed in the project and if not runs npm to install them.
+This uses the defaults and adds a module named *root-store* to the default project, usually *app*.  It also detects whether you have the appropriate NgRx dependencies installed in the project and if not runs installs them via npm.
 
 After running the above the VS Code workspace structure looks like this
 
@@ -116,12 +116,12 @@ Option|Description|Default|Example
 name|Specifies a name for the root store module|root-store|ng g @testpossessed/ng-schematics:root-store --name store-root
 project|Specifies the project to add a root store module to|Default project from angular.json, usually app|ng g @testpossessed/ng-schematics:root-store --project nested
 
-To demonstrate the options in use we will use both of them to add a Root Store to our nested project with a non-default name
+To demonstrate the options we will use both of them to add a Root Store to our *nested* project with a non-default name
 ```bash
 ng g @testpossessed/ng-schematics:root-store --name store-root --project nested
 ```
 
-After running the above, this is what the VS Code nested project structure looks like this
+After running the above, the VS Code nested project structure looks like this
 
 ![New Root Store module in nested project](doc-assets/nested-root-store.jpg)
 

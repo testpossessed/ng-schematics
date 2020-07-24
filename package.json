@@ -1,12 +1,16 @@
 {
   "name": "@testpossessed/ng-schematics",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A set of schematics for using Angular and NgRx applying opinionated and more strongly typed practices",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "test": "npm run build && jasmine src/**/*_spec.js",
-    "publish": "npm publish --access public"
+    "deploy": "npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/testpossessed/ng-schematics.git"
   },
   "keywords": [
     "schematics",
@@ -15,7 +19,10 @@
     "strongly typed"
   ],
   "author": "Mike Hanson",
-  "license": "MIT",
+  "license": "MIT","bugs": {
+    "url": "https://github.com/testpossessed/ng-schematcis/issues"
+  },
+  "homepage": "https://github.com/testpossessed/ng-schematcis#readme",
   "schematics": "./src/collection.json",
   "dependencies": {
     "@angular-devkit/core": "^8.3.17",
