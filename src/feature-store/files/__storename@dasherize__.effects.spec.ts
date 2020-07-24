@@ -3,13 +3,13 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { ReplaySubject } from 'rxjs';
 import { StoreModule } from '@ngrx/store';
 
-import { InitialiseModule, InitialiseModuleSucceeded } from './<%= dasherize(name) %>.actions';
+import { InitialiseModule, InitialiseModuleSucceeded } from './<%= dasherize(storename) %>.actions';
 
-import { <%= classify(name) %>Effects } from './<%= dasherize(name) %>.effects';
+import { <%= classify(storename) %>Effects } from './<%= dasherize(storename) %>.effects';
 
-describe('ShellEffects', () => {
+describe(' <%= classify(storename) %>', () => {
   let actions$: ReplaySubject<any>;
-  let effects: <%= classify(name) %>Effects;
+  let effects: <%= classify(storename) %>Effects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,11 +26,11 @@ describe('ShellEffects', () => {
           }
         )
       ],
-      providers: [<%= classify(name) %>Effects, provideMockActions(() => actions$)]
+      providers: [<%= classify(storename) %>Effects, provideMockActions(() => actions$)]
     });
 
     actions$ = new ReplaySubject(1);
-    effects = TestBed.get(<%= classify(name) %>Effects);
+    effects = TestBed.get(<%= classify(storename) %>Effects);
   });
 
   it('should compile', () => {

@@ -3,11 +3,11 @@
   "id": "feature-store-schema",
   "title": "Feature Store Schematic Schema",
   "type": "object",
-  "description": "Creates an NgRx feature store in accordance with pattern described at http://github.com/testpossessed/ng-schematics",
+  "description": "Creates an NgRx feature store in accordance with the pattern described at http://github.com/testpossessed/ng-schematics",
   "properties": {
-    "name": {
+    "feature": {
       "type": "string",
-      "description": "Name to use for the feature store module will be appended to the name",
+      "description": "Name of the feature the store is for",
       "$default": {
         "$source": "argv",
         "index": 0
@@ -24,7 +24,11 @@
     "nospec": {
       "type": "boolean",
       "description": "Indicates not to create specs for the feature store elements"
+    },
+    "storename": {
+      "type": "string",
+      "description": "Name to use for the store module, defaults to <feature>Store"
     }
   },
-  "required": ["name"]
+  "required": ["feature"]
 }

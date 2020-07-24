@@ -23,6 +23,9 @@ import {
 } from '../schematic-utilities';
 
 export default function featureStore(options: FeatureStoreSchema): Rule {
+  if(!options.storename) {
+    options.storename = options.feature + 'Store';
+  }
   console.log(options);
   return (tree: Tree, _context: SchematicContext) => {
     const angularWorkspace = getAngularWorkspaceSchema(tree);
@@ -35,7 +38,7 @@ export default function featureStore(options: FeatureStoreSchema): Rule {
         'Could not find .rootprojectrc, this project has not been initialised properly, please run the root-store schematic in this project first.'
       );
     }
-    const featureModuleFolderPath = `${rootStoreConfig.rootStoreModuleFolderPath}/${options.name}`;
+    const featureModuleFolderPath = `${rootStoreConfig.rootStoreModuleFolderPath}/${strings.dasherize(options.storename as string)}`;
     const templateFiles = url('./files');
     const includeSpecs = !(options.nospec as boolean);
     const filterSpecsRule = createFilterSpecsRule(includeSpecs);
@@ -48,7 +51,7 @@ export default function featureStore(options: FeatureStoreSchema): Rule {
       })
     ]);
     const templateRule = mergeWith(templateSource, MergeStrategy.Default);
-    const updateRootStoreModuleRule = createUpdateRootStoreModuleRule(rootStoreConfig, options.name as string);
+    const updateRootStoreModuleRule = createUpdateRootStoreModuleRule(rootStoreConfig, options.storename as string);
 
     return chain([templateRule, updateRootStoreModuleRule]);
   };

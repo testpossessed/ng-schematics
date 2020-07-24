@@ -3,7 +3,7 @@
     "id": "root-store-schema",
     "title": "Root Store Schematic Schema",
     "type": "object",
-    "description": "Creates a root NgRx store for the application in accordance with pattern described at http://github.com/testpossessed/ng-schematics",
+    "description": "Creates a root NgRx store for the application in accordance with the pattern described at http://github.com/testpossessed/ng-schematics",
     "properties": {
         "name": {
             "type": "string",
