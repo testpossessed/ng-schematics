@@ -5,10 +5,10 @@ import * as path from 'path';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('root-store', () => {
-  it('works', () => {
+  it('works', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = runner.runSchematic('ng-schematics', {}, Tree.empty());
-
-    expect(tree.files).toEqual([]);
+    const tree = await runner.runSchematicAsync('ng-schematics', {}, Tree.empty());
+    tree.subscribe(t => expect(t.files).toEqual([]));
+    
   });
 });

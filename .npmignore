@@ -1,7 +1,10 @@
-# Ignores TypeScript files, but keeps definitions.
-*.ts
-!*.d.ts
+src/*.ts
+src/**/index.spec.*
+src/**/index.ts
+src/**/index.d.ts
+src/testing/*
 src/app/*
 projects/*
 .vscode/*
 angular.json
+tsconfig.json

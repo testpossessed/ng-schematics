@@ -1,8 +1,9 @@
-import { experimental, strings } from '@angular-devkit/core';
+import { strings } from '@angular-devkit/core';
 import { Tree, SchematicsException, Rule, SchematicContext, TaskId, filter, noop } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { NodePackageTaskOptions } from '@angular-devkit/schematics/tasks/node-package/options';
+import { NodePackageTaskOptions } from '@angular-devkit/schematics/tasks/package-manager/options';
 import { SourceFile, Node, SyntaxKind, createSourceFile, ScriptTarget } from 'typescript';
+import { WorkspaceProject, WorkspaceSchema } from '@schematics/angular/utility/workspace-models';
 
 import { IRootStoreConfig } from './root-store-config';
 
@@ -89,7 +90,7 @@ export function createNodePackageInstallRule(packageId: string, callback?: (task
 }
 
 export function createUpdateProjectRootModuleRule(
-  workspace: experimental.workspace.WorkspaceSchema,
+  workspace: WorkspaceSchema,
   moduleName: string,
   projectName?: string
 ): Rule {
@@ -156,7 +157,7 @@ export function createUpdateRootStoreModuleRule(
   };
 }
 
-export function createUpdateWorkspaceRule(workspace: experimental.workspace.WorkspaceSchema): Rule {
+export function createUpdateWorkspaceRule(workspace: WorkspaceSchema): Rule {
   return (_tree: Tree, _context: SchematicContext) => {
     const workspaceContent = JSON.stringify(workspace, null, 2);
     _tree.overwrite('/angular.json', workspaceContent);
@@ -176,7 +177,7 @@ export function createWriteFileRule(path: string, content: string): Rule {
 }
 
 export function createWriteRootStoreConfigFileRule(
-  project: experimental.workspace.WorkspaceProject,
+  project: WorkspaceProject,
   config: IRootStoreConfig
 ): Rule {
   const path = `${project.root}/.rootstorerc`;
@@ -186,9 +187,9 @@ export function createWriteRootStoreConfigFileRule(
 }
 
 export function getAngularProject(
-  workspace: experimental.workspace.WorkspaceSchema,
+  workspace: WorkspaceSchema,
   name?: string
-): experimental.workspace.WorkspaceProject {
+): WorkspaceProject {
   let actualName: string = name as string;
   if (!actualName || actualName === 'defaultProject') {
     actualName = workspace.defaultProject as string;
@@ -197,7 +198,7 @@ export function getAngularProject(
   return workspace.projects[actualName];
 }
 
-export function getAngularWorkspaceSchema(tree: Tree): experimental.workspace.WorkspaceSchema {
+export function getAngularWorkspaceSchema(tree: Tree): WorkspaceSchema {
   const workspace = tree.read('/angular.json');
 
   if (!workspace) {
